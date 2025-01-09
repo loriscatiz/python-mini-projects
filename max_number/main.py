@@ -1,5 +1,3 @@
-
-
 def main():
 
     def getValidInput(prompt):
@@ -16,7 +14,6 @@ def main():
         print(x2, " is greater than ", x1)
     else: 
         print(x1, " and ", x2, " are equal")
-
 
 if __name__ == "__main__":
     main()
