@@ -1,9 +1,9 @@
 def main():
     #hoisting: assegnazione di una variabile e del suo tipo. num_fimmiferi è uno spazio di memoria (variabiile tipo intero, contiene valore 11)
     #python è case sensitive e debolmente tipizzato
-    num_matchsticks = 11
-    current_turn = 1
-    max_extraction = 3
+    num_matchsticks: int = 11
+    current_turn: int = 1
+    max_extraction: int = 3
     while num_matchsticks > 1:
         print("Player " + ("2" if current_turn % 2 == 0 else "1") + "'s turn")
         da_estrarre = int(input("Insert number of matchsticks to extract: "))
