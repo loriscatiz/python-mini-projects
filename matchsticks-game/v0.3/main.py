@@ -81,7 +81,7 @@ def get_bool() -> bool:
     no_answers = ["", "0", "no", "nope", "nah", "n"]
     while True:
             try: 
-                user_input = get_string_in_range(0, 4).lower()
+                user_input = input().lower()
                 if user_input not in yes_answers + no_answers:
                     raise ValueError
             except ValueError: 
@@ -125,7 +125,7 @@ def main() -> None:
                 max_pickups = remaining_matchsticks - 1
 
             # Determine current player
-            player_current = player_2 if player_turn == 2 else player_1
+            player_current: str = player_2 if player_turn == 2 else player_1
             
             print(f"{player_current}'s turn, there are {remaining_matchsticks} matchsticks on the table")
             print("How many matchsticks do you pick up?")
@@ -135,9 +135,9 @@ def main() -> None:
             player_turn = 1 if player_turn == 2 else 2
 
         # Game over logic
-        player_current = player_2 if player_turn == 2 else player_1
+        player_current = player_1 if player_turn == 2 else player_2 #Switch current player to display the winner. Otherwise it would have displayed the loser
         print(f"Game ends because there is only 1 matchstick on the table. {player_current} wins")
-        print("Want to play again")
+        print("Want to play again [Y/N]")
         is_playing = get_bool()
 # Run the game
 if __name__ == "__main__":
