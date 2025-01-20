@@ -25,9 +25,9 @@ def main():
     char = get_valid_char()
     
     if char in vowels:
-        print(char, "Is a vowel")
+        print(char, "is a vowel")
     else:
-        print(char, "Is not a vowel")
+        print(char, "is not a vowel")
 
 if __name__ == "__main__":
     main()
