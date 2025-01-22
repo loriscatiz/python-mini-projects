@@ -1,22 +1,12 @@
-"""
-having string ^^^v^vvv
-elevator starting at 0
-"""
 import sys
 sys.path.append('../modules')
 from modules import utils
 
-
-
 class ElevetorEnded(ValueError):
     pass
 
-
-
-accepted_values = ['^', 'v', '']
-
-
 def move(elevator_min_floor: int, elevator_max_floor: int, current_floor: int):
+    accepted_values = ['^', 'v', '']
     moving_command: str = utils.getStringAcceptedValues(accepted_values)
     for char in moving_command:
         if char == '^':
@@ -38,9 +28,6 @@ def move(elevator_min_floor: int, elevator_max_floor: int, current_floor: int):
         print(f"You are at floor {current_floor}")
     print(f"You ended up at floor {current_floor}")
 
-    
-
-
 def main():
     print('How many floors are there?')
     floors = utils.get_int_greater_or_equal_than(1)
@@ -53,8 +40,6 @@ def main():
     print(f"You are at floor {current_floor}")
     print('To move, input a string made of "^" and "v" "^" goes up, "v" goes down ')
     move(min_floor, max_floor, current_floor)
-
-
 
 if __name__ == '__main__':
     main()

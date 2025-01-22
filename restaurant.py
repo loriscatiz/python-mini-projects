@@ -33,19 +33,11 @@ def get_bill() -> float:
         else:
             return bill
 
-
-
 def main():
     people = get_people()
     bill = get_bill()
-
     share = bill / people
-
-    print(
-f"""
-There are {people} people, the total is {bill}. Each person's share is {share:.2f}
-""")
-
+    print(f"There are {people} people, the total is {bill}. Each person's share is {share:.2f}")
 
 if __name__ == '__main__':
     main()

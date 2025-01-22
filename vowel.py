@@ -1,7 +1,5 @@
-def get_valid_char():
-
+def get_valid_letter():
     while True:
-
         try:
             retvalue = input("Insert a letter: ")
             if len(retvalue) > 1:
@@ -11,7 +9,6 @@ def get_valid_char():
             if not retvalue.isalpha():
                 raise ValueError("Not a letter")
             return retvalue.lower()
-        
         except ValueError as e:
             if str(e) == "Longer than 1 char":
                 print("That's more than one charachter")
@@ -22,7 +19,7 @@ def get_valid_char():
 
 def main():
     vowels = list("aeiou")
-    char = get_valid_char()
+    char = get_valid_letter()
     
     if char in vowels:
         print(char, "is a vowel")

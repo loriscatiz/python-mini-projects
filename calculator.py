@@ -4,21 +4,6 @@ from modules import utils
 
 operators =  ['+', '-', '/', '*']
 
-def get_many_floats() -> list[float]:
-    retvalue: list[float] = []
-    while True:
-        try:
-            user_input = (input("Insert a number to continue or leave blank to stop:"))
-            if user_input == '':
-                break
-            number: float = float(user_input)
-        except ValueError: 
-            print("This is not a number")
-        else:
-            retvalue.append(number)
-    return retvalue
-
-
 def add_all(*args: float) -> float:
     partial_result = 0
     for element in args:
@@ -114,7 +99,7 @@ def main() -> None:
     test = get_operator(operators)
     
     print('Select numbers to operate:')
-    numbers: list[float] = get_many_floats()
+    numbers: list[float] = utils.get_many_floats()
 
     result = calculate_all(test, *numbers) 
     

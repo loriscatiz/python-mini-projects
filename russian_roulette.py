@@ -1,14 +1,7 @@
 from random import shuffle, randint
-
-# Custom exception classes for specific error handling
-class TooLarge(ValueError):
-    pass
-
-class TooSmall(ValueError):
-    pass
-
-class SpacesInString(ValueError):
-    pass
+import sys
+sys.path.append('../modules')
+from modules import utils
 
 # Function to get a valid integer input
 def get_int() -> int:
@@ -26,8 +19,8 @@ def get_int_greater_or_equal_than(min_value: int) -> int:
         try:
             retvalue: int = get_int()
             if retvalue < min_value:
-                raise TooSmall  # Raise custom error if too small
-        except TooSmall:
+                raise utils.TooSmall # Raise custom error if too small
+        except utils.TooSmall:
             print(f"The integer number must be >= {min_value}")
         else:
             return retvalue
@@ -38,8 +31,8 @@ def get_int_smaller_or_equal_than(max_value: int) -> int:
         try:
             retvalue: int = get_int()
             if retvalue > max_value:
-                raise TooLarge  # Raise custom error if too large
-        except TooLarge:
+                raise utils.TooLarge  # Raise custom error if too large
+        except utils.TooLarge:
             print(f"The integer number must be <= {max_value}")
         else:
             return retvalue
@@ -50,8 +43,8 @@ def get_int_in_range(min_value: int, max_value: int) -> int:
         try:
             retvalue: int = get_int_smaller_or_equal_than(max_value)
             if retvalue < min_value:
-                raise TooSmall  # Raise error if below range
-        except TooSmall:
+                raise utils.TooSmall  # Raise error if below range
+        except utils.TooSmall:
             print(f"The integer number must be between {min_value} and {max_value}")
         else:
             return retvalue
@@ -62,16 +55,16 @@ def get_string_in_range(min_value: int, max_value: int) -> str:
         try:
             retvalue: str = input()
             if " " in retvalue:  # Check for spaces
-                raise SpacesInString
+                raise utils.SpacesInString
             if len(retvalue) < min_value:  # Check minimum length
-                raise TooSmall
+                raise utils.TooSmall
             if len(retvalue) > max_value:  # Check maximum length
-                raise TooLarge
-        except TooSmall:
+                raise utils.TooLarge
+        except utils.TooSmall:
             print(f"Insert at least {min_value} chars")
-        except TooLarge:
+        except utils.TooLarge:
             print(f"Insert maximum {max_value} chars")
-        except SpacesInString:
+        except utils.SpacesInString:
             print("Spaces are not allowed")
         else:
             return retvalue

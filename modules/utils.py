@@ -11,7 +11,6 @@ class SpacesInString(ValueError):
 class NotValidAnswer(ValueError):
     pass 
 
-# Function to get a valid integer input
 def get_int() -> int:
     while True:
         try: 
@@ -21,7 +20,6 @@ def get_int() -> int:
         else:
             return retvalue
         
-# Function to get a valid integer input
 def get_float() -> float:
     while True:
         try: 
@@ -31,7 +29,6 @@ def get_float() -> float:
         else:
             return retvalue
 
-# Function to get a valid integer input
 def get_float_not(banned_value: float | None) -> float:
     while True:
         try: 
@@ -42,8 +39,21 @@ def get_float_not(banned_value: float | None) -> float:
             print(f"{banned_value} is not an accepted value")
         else:
             return retvalue
+        
+def get_many_floats() -> list[float]:
+    retvalue: list[float] = []
+    while True:
+        try:
+            user_input = (input("Insert a number to continue or leave blank to stop:"))
+            if user_input == '':
+                break
+            number: float = float(user_input)
+        except ValueError: 
+            print("This is not a number")
+        else:
+            retvalue.append(number)
+    return retvalue
 
-# Function to get an integer greater than or equal to a minimum value
 def get_int_greater_or_equal_than(min_value: int) -> int:
     while True:
         try:
@@ -55,7 +65,6 @@ def get_int_greater_or_equal_than(min_value: int) -> int:
         else:
             return retvalue
 
-# Function to get an integer smaller than or equal to a maximum value
 def get_int_smaller_or_equal_than(max_value: int) -> int:
     while True:
         try:
@@ -67,7 +76,6 @@ def get_int_smaller_or_equal_than(max_value: int) -> int:
         else:
             return retvalue
 
-# Function to get an integer within a specified range
 def get_int_in_range(min_value: int, max_value: int) -> int:
     while True:
         try:
@@ -79,7 +87,6 @@ def get_int_in_range(min_value: int, max_value: int) -> int:
         else:
             return retvalue
 
-# Function to get a string of specified length without spaces
 def get_string_in_range(min_lenght: int, max_lenght: int) -> str:
     while True:
         try:
@@ -111,12 +118,11 @@ def getStringAcceptedValues(accepted_values: list[str]):
                 retvalue: str = input()
 
         return retvalue
-            
-
 
 def get_bool() -> bool:
     yes_answers = ["1", "yes", "yep", "yeah", "y"]
     no_answers = ["", "0", "no", "nope", "nah", "n"]
+    
     while True:
             try: 
                 user_input = input().lower()
@@ -126,7 +132,6 @@ def get_bool() -> bool:
                 print("Invalid response.")
                 print(f"To say yes type any of these: {yes_answers}")
                 print(f"To say no type any of these: {no_answers}")
-
             else:
                 if user_input in yes_answers:
                     retvalue = True
@@ -135,5 +140,3 @@ def get_bool() -> bool:
 
                 return retvalue
             
-def test(*args: int):
-    pass
