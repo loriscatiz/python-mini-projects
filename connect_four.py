@@ -145,10 +145,10 @@ def check_win_diag(coordinates: list[int], player: str):
     test_diag = []
     i=0
     while i < len(diag) - 1:
-        if e == player and e == diag[i+1]:
-            test_diag.append(e)
-        elif e == player and e == diag[i-1] and e != diag[i+1]:
-            test_diag.append(e)
+        if diag[i] == player and diag[i] == diag[i+1]:
+            test_diag.append(diag[i])
+        elif diag[i] == player and diag[i] == diag[i-1] and diag[i] != diag[i+1]:
+            test_diag.append(diag[i])
             i+=1
     if len(test_diag) >=4:
         return True
