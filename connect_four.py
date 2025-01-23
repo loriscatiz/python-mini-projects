@@ -6,14 +6,16 @@ class ColumnFull(IndexError):
     pass
 class OutOfBoard(IndexError):
     pass
+class DeadEnd(IndexError):
+    pass
 
 board: list[list[str]] = [
     [ '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵'],
     [ '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵'],
-    [ '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵'],
-    [ '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵'],
-    [ '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵'],
-    [ '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵',  '🔵'],
+    [ '🔵',  '🔵',  '🔵',  '🔴',  '🔵',  '🔵',  '🔵'],
+    [ '🔵',  '🔵',  '🟡',  '🟡',  '🔵',  '🔵',  '🔵'],
+    [ '🔵',  '🔴',  '🟡',  '🟡',  '🔴',  '🔴',  '🔵'],
+    [ '🔴',  '🟡',  '🟡',  '🟡',  '🔵',  '🔴',  '🔴'],
     ]
 
 
@@ -44,8 +46,8 @@ def insert_into_col(column: int, player: str) -> list[int]:
             coordinates[1] = coordinates [1] - 1 #type: ignore
             return coordinates # type: ignore
         
-        
-def check_win_down(coordinates: list[int], player: str):    
+"""        
+def check_win_vert(coordinates: list[int], player: str):    
     retvalue = True
     try:
         for i in range(4):
@@ -58,114 +60,148 @@ def check_win_down(coordinates: list[int], player: str):
         retvalue = False
     finally:
         return retvalue
-    
-def check_win_left(coordinates: list[int], player: str):    
-    retvalue = True
-    try:
-        for i in range(4):
-            if board[coordinates[0]][coordinates[1] - i] == player:
-                continue
-            else:
-                retvalue = False
-                return retvalue
-    except IndexError:
-        retvalue = False
-    finally:
-        return retvalue
 
-def check_win_left(coordinates: list[int], player: str):    
-    retvalue = True
-    try:
-        for i in range(4):
-            if board[coordinates[0]][coordinates[1] - i] == player:
-                continue
-            else:
-                retvalue = False
-                return retvalue
-    except IndexError:
-        retvalue = False
-    finally:
-        return retvalue
+def check_win_horiz(coordinates: list[int], player: str):
+    color_count = -1
 
-def check_win_right(coordinates: list[int], player: str):   
-    retvalue = True
-    try:
-        for i in range(4):
+    for i in range(4):
+        try:
             if board[coordinates[0]][coordinates[1] + i] == player:
+                color_count += 1
+                print(color_count)
                 continue
             else:
-                retvalue = False
-                return retvalue
-    except IndexError:
-        retvalue = False
-    finally:
-        return retvalue
+                break
+        except IndexError:
+            break
     
-def check_win_down_left(coordinates: list[int], player: str):   
-    retvalue = True
-    try:
-        for i in range(4):
-            if board[coordinates[0]+i][coordinates[1] - i] == player:
+    for j in range(4-color_count):
+        try:
+            if board[coordinates[0]][coordinates[1] - j] == player:
+                color_count += 1
+                print(color_count)
                 continue
             else:
-                retvalue = False
-                return retvalue
-    except IndexError:
-        retvalue = False
-    finally:
-        return retvalue
+                break
+        except IndexError:
+            break
+    if color_count == 4:
+        return True
+    else:
+        return False """
+
+""" def check_win_diag_up(coordinates: list[int], player: str):   
+    diag_list = [board[coordinates[0]][coordinates[1]]]
+    coordinates = list(map(abs, coordinates))
+    i = 1
+    while i < 4:
+        try:
+            diag_list.append(board[-len(board) + coordinates[0] + i][ - len(board[0]) + coordinates[1] + i])
+            print([coordinates[0] + i], [coordinates[1] + i])
+            print(diag_list)
+            i+=1
+        except IndexError:
+            break
     
-def check_win_down_right(coordinates: list[int], player: str):   
-    retvalue = True
-    try:
-        for i in range(4):
-            if board[coordinates[0]+i][coordinates[1] + i] == player:
-                continue
-            else:
-                retvalue = False
-                return retvalue
-    except IndexError:
-        retvalue = False
-    finally:
-        return retvalue
-    
-def check_win_up_right(coordinates: list[int], player: str):   
-    retvalue = True
-    try:
-        for i in range(4):
-            if board[coordinates[0] - i][coordinates[1] + i] == player:
-                continue
-            else:
-                retvalue = False
-                return retvalue
-    except IndexError:
-        retvalue = False
-    finally:
-        return retvalue
-    
-def check_win_up_left(coordinates: list[int], player: str):   
-    retvalue = True
-    try:
-        for i in range(4):
-            if board[coordinates[0] - i][coordinates[1] - i] == player:
-                continue
-            else:
-                retvalue = False
-                return retvalue
-    except IndexError:
-        retvalue = False
-    finally:
-        return retvalue
+    j = 1
+    while j < 4:
+        try:
+            diag_list.insert(0, board[-len(board) + coordinates[0] + j][ - len(board[0]) + coordinates[1] + j])
+            print([coordinates[0] + j], [coordinates[1] + j])
+            print(diag_list)
+            j+=1
+        except IndexError:
+            break
+
+    return True
+"""
+def check_win_diag(coordinates: list[int], player: str):   
+    diag = []
+    print(coordinates)
+    coordinates[0] = coordinates[0] + len(board)
+    i = 0
+    while i < 4:
+        try:
+            if not coordinates[1] - i < 0:
+                diag.append(board[coordinates[0] + i][coordinates[1] - i])
+                print(diag)
+                print(coordinates[0] + i, coordinates[1] - i)
+            i+=1
+            print()
+        except IndexError:
+            break
+    i = 1
+    while i < 4:
+        try:
+            if not coordinates[0] - i < 0:
+                diag.insert(0, board[coordinates[0] - i][coordinates[1] + i])
+                print(diag)
+                print(coordinates[0] - i, coordinates[1] + i)
+            i += 1
+            print()
+        except IndexError:
+            break
+        i +=1
+    test_diag = []
+    i=0
+    while i < len(diag) - 1:
+        if e == player and e == diag[i+1]:
+            test_diag.append(e)
+        elif e == player and e == diag[i-1] and e != diag[i+1]:
+            test_diag.append(e)
+            i+=1
+    if len(test_diag) >=4:
+        return True
+    else:
+        return False
+
+
+
+def check_win_diag_2(coordinates: list[int], player: str):   
+    diag = []
+    print(coordinates)
+    coordinates[0] = coordinates[0] + len(board)
+    i = 0
+    while i < 4:
+        try:
+            diag.append(board[coordinates[0] + i][coordinates[1] + i])
+            print(diag)
+            print(coordinates[0] + i, coordinates[1] + i)
+            i+=1
+            print()
+        except IndexError:
+            break
+    i = 1
+    while i < 4:
+        try:
+            if not coordinates[0] - i < 0 or coordinates[1] - i < 0:
+                diag.insert(0, board[coordinates[0] - i][coordinates[1] - i])
+                print(diag)
+                print(coordinates[0] - i, coordinates[1] - i)
+            i += 1
+            print()
+        except IndexError:
+            break
+        i +=1
+
+    test_diag = []
+    i=0
+    while i < len(diag) - 1:
+        if diag[i] == player and e == diag[i+1]:
+            test_diag.append(diag[i])
+        elif e == player and e == diag[i-1] and e != diag[i+1]:
+            test_diag.append(e)
+            i+=1
+    if len(test_diag) >=4:
+        return True
+    else:
+        return False
+
 
 def check_win(coordinates: list[int], player: str) -> bool:
-    conditions = [
-        check_win_up_right(coordinates, player),
-        check_win_right(coordinates, player),
-        check_win_down_right(coordinates, player),
-        check_win_down(coordinates, player),
-        check_win_down_left(coordinates, player),
-        check_win_left(coordinates, player),
-        check_win_up_left(coordinates, player)]
+    conditions = [ 
+       check_win_diag(coordinates, player),
+       check_win_diag_2(coordinates, player)]
     if True in conditions:
         return True
     else: return False
@@ -230,9 +266,9 @@ def main():
     player = '🔴'
     print('Welcome to connect four')
     print('Player 1 insert your username')
-    player_1_username: str = utils.get_string_in_range(2, 10)
+    player_1_username: str =  'test' # utils.get_string_in_range(2, 10)
     print('Player 2 insert your username')
-    player_2_username: str = utils.get_string_in_range(2, 10)
+    player_2_username: str =  'test2' # utils.get_string_in_range(2, 10)
     engine(player, player_1_username, player_2_username)
     pass
 
