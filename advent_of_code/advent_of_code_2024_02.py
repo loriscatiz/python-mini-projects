@@ -1011,14 +1011,11 @@ final_accepted_rows :list[list[int]]  = []
 for row in rows:
     row = row.split()
     row = [int(e) for e in row]
-    print(type(row[0]))
     if row == sorted(row) or row == sorted(row, reverse=True):
         ordered_rows.append((row))
     else:
         unordered_rows.append(row)
 
-print(len(ordered_rows))
-print(len(unordered_rows))
 for row in ordered_rows:
     i = 0
     valid = True
@@ -1061,11 +1058,25 @@ for row in unordered_rows:
 
 
 print(len(rows))
+accepted_rows.clear()
 print(len(accepted_rows))
 
 
 
-    
+for row in rows:
+    for i, element in enumerate(row):
+        numbers_row = list(map(int, element))
+        temp_row = numbers_row[:i+1]
+        if temp_row == sorted(temp_row) or temp_row == sorted(temp_row, reverse=True):
+            step = abs(temp_row[i-1] - temp_row[i])
+            if step <= 3 and step >= 1:
+                error = False
+                break
+            else:
+                error = True
+    if error is False:
+        accepted_rows.append(row)
+
 
 
 

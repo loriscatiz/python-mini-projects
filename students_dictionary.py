@@ -1,6 +1,6 @@
 
 
-def mean_per_student(dictionaries: list[dict[str, object]]) -> None:
+def average_per_student(dictionaries: list[dict[str, object]]) -> None:
     for dictionary in dictionaries:
         total_grades = 0
         for grade in dictionary['grades']: # type: ignore
@@ -24,6 +24,6 @@ test: list[dict[str, object]] = [{
     ]
 
 def main():
-    mean_per_student(test)
+    average_per_student(test)
 if __name__ == '__main__':
     main()
