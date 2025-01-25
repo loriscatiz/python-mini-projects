@@ -7,7 +7,7 @@ class ElevetorEnded(ValueError):
 
 def move(elevator_min_floor: int, elevator_max_floor: int, current_floor: int):
     accepted_values = ['^', 'v', '']
-    moving_command: str = utils.getStringAcceptedValues(accepted_values)
+    moving_command: str = utils.get_string_accepted_values(accepted_values)
     for char in moving_command:
         if char == '^':
             try:

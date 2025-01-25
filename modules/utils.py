@@ -106,7 +106,7 @@ def get_string_in_range(min_lenght: int, max_lenght: int) -> str:
         else:
             return retvalue
         
-def getStringAcceptedValues(accepted_values: list[str]):
+def get_string_accepted_values(accepted_values: list[str]):
     while True:
         retvalue: str = input().strip()
         for char in retvalue: 
