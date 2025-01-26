@@ -1,4 +1,4 @@
-array: list[float] = [ 15,9, -4, 0.3, 3.5]
+array: list[float] = [ 15, 9, -4, 0.3, 3.5]
 
 def bubble_sort(array: list[float]):
     for i in range(len(array) - 1):
@@ -19,6 +19,22 @@ def selection_sort(array: list[float]):
         temp = array[i] 
         array[min_index] = temp
         array[i] = min_value
-selection_sort(array)
+
+def insertion_sort(array: list[float]):
+    for i in range (1, len(array)):
+        temp = array[i]
+        j = i - 1
+        while j >= 0:
+            if array[j] >= temp:
+                array[j+1] = array[j]
+                j-=1
+            else:
+                break
+        array[j + 1] = temp
+
+
+
 # bubble_sort(array)
+# selection_sort(array)
+insertion_sort(array)
 print(array)
