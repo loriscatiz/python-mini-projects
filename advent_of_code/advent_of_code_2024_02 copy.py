@@ -999,88 +999,53 @@ data: str = """3 6 7 9 11 8
 99 96 93 91 88 85 82 80
 22 21 18 16 14 13 12 10"""
 
+
 rows = data.split("\n")
-print(type(rows))
-ordered_rows: list[list[int]] = []
-unordered_rows: list[list[int]] = []
-print(type(ordered_rows))
 
-accepted_rows :list[list[int]]  = []
-final_accepted_rows :list[list[int]]  = []
+def is_sorted_any_order(e: list[int]) -> bool:
+    return e == sorted(e) or e == sorted(e, reverse=True)
 
-for row in rows:
-    row = row.split()
-    row = [int(e) for e in row]
-    if row == sorted(row) or row == sorted(row, reverse=True):
-        ordered_rows.append((row))
-    else:
-        unordered_rows.append(row)
-
-for row in ordered_rows:
+def is_valid(row: list[int]):
     i = 0
-    valid = True
     while i < len(row) - 1:
         step = abs(int(row[i]) - int(row[i+1]))
         if step <= 3 and step >= 1:
             pass
         else:
-            valid = False
+            return False
         i+=1
-    if valid == True:
-        accepted_rows.append(row)
+    return True
 
-#second star
-
-for row in unordered_rows:
-    test_row = row.copy()
-    i = 0
-    valid = False
-    while i < len(row):
-        j = 0
-        if valid == True:
-            break
-        while j <= len(row) - 2:
-            popped_item = test_row.pop(j)
-            step = abs(int(row[j]) - int(row[j+1]))
-            if step <= 3 and step >= 1:
-                if sorted(test_row) == test_row:
-                    valid = True
-                    break
-            else:
-                pass
-            test_row.insert(j + 1, popped_item)  
-            j+=1
-        i+=1
-
-    if valid == True:
-        final_accepted_rows.append(row)
-
-
-
-print(len(rows))
-accepted_rows.clear()
-print(len(accepted_rows))
-
-
-
+result = 0
 for row in rows:
-    for i, element in enumerate(row):
-        numbers_row = list(map(int, element))
-        temp_row = numbers_row[:i+1]
-        if temp_row == sorted(temp_row) or temp_row == sorted(temp_row, reverse=True):
-            step = abs(temp_row[i-1] - temp_row[i])
-            if step <= 3 and step >= 1:
-                error = False
-                break
-            else:
-                error = True
-    if error is False:
-        accepted_rows.append(row)
+    row_list = row.split()
+    row_list = [int(e) for e in row_list]
+    if is_sorted_any_order(row_list):
+        if is_valid(row_list):
+            result += 1
+            continue
+        else:
+            i = 0
+            while i < len(row_list):
+                popped = row_list.pop(i)
+                if is_valid(row_list):
+                    result+=1
+                    break
+                row_list.insert(i, popped)
+                i += 1
+    else:
+        i = 0
+        while i < len(row_list):
+            popped = row_list.pop(i)
+            if is_sorted_any_order(row_list):
+                if is_valid(row_list):
+                    result+=1
+                    break
+            row_list.insert(i, popped)
+            i += 1
+ 
+print(result)
+                
 
 
 
-
-
-
-            
-    

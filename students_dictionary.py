@@ -16,8 +16,8 @@ test: list[dict[str, object]] = [{
         'school_class': '4A',
         'grades': [4, 8, 9, 4]
         },
-        {'first_name': 'Juan',
-          'last_name': 'Tacos',
+        {'first_name': 'Mario',
+          'last_name': 'Rossi',
           'school_class': '2C',
           'grades': [4, 8, 9, 10]
         },
