@@ -1,8 +1,8 @@
 import random
     
-array: list[float] = []
-for i in range(10):
-    array.append(random.randint(0, 101))
+array: list[float] = [8,4,7,1,5]
+#for i in range(5):
+ #   array.append(random.randint(0, 101))
 
 def bubble_sort(array: list[float]):
     for i in range(len(array) - 1):
@@ -48,6 +48,25 @@ def merge_sort(array: list[float]) -> list[float]:
     sorted_right: list[float] = merge_sort(right)
     return merge(sorted_left, sorted_right)
 
+def partition(array: list[float], low: int, high:int ) -> int:
+    pivot = array[high]  
+    j = low - 1
+    
+    for i in range(low, high): 
+        if array[i] < pivot:
+            j += 1
+            array[i], array[j] = array[j], array[i] 
+            
+    j += 1
+    array[j], array[high] = array[high], array[j] 
+    return j  
+
+def quick_sort(array: list[float], low: int, high: int):
+    if low < high:
+        pivot_index = partition(array, low, high)  # Get partition index
+        quick_sort(array, low, pivot_index - 1)  # Sort left half
+        quick_sort(array, pivot_index + 1, high)  # Sort right half
+
 def merge(left: list[float], right: list[float]) -> list[float]:
     merged_array: list[float] = []
     i = 0
@@ -71,7 +90,7 @@ def merge(left: list[float], right: list[float]) -> list[float]:
 
 
 def main():
-    merge_sort(array)
-
+    (quick_sort(array, 0, len(array)-1))
+    print(array)
 if __name__ == '__main__':
     main()
