@@ -116,7 +116,6 @@ def get_string_accepted_values(accepted_values: list[str]):
             except NotValidAnswer:
                 print(f"Only accepted input are made of: {accepted_values}")
                 retvalue: str = input()
-
         return retvalue
 
 def get_bool() -> bool:
